@@ -5,7 +5,7 @@ import argparse
 import json
 from pathlib import Path
 
-from .convert import convert_file
+from .convert import convert_file, deduplicate_records
 from .io import read_records, write_jsonl
 from .split import split_records
 from .validate import validate
@@ -24,7 +24,10 @@ def main() -> None:
     split.add_argument("--seed", type=int, default=20261004)
     merge = sub.add_parser("merge")
     merge.add_argument("inputs", type=Path, nargs="+")
-    merge.add_argument("output", type=Path)
+    merge.add_argument("--output", type=Path, required=True)
+    deduplicate = sub.add_parser("deduplicate")
+    deduplicate.add_argument("input", type=Path)
+    deduplicate.add_argument("output", type=Path)
     check = sub.add_parser("validate")
     check.add_argument("input", type=Path)
     args = parser.parse_args()
@@ -35,6 +38,8 @@ def main() -> None:
             for path in args.inputs:
                 yield from read_records(path)
         print(json.dumps({"records": write_jsonl(args.output, rows())}, sort_keys=True))
+    elif args.command == "deduplicate":
+        print(json.dumps({"records": write_jsonl(args.output, deduplicate_records(read_records(args.input)))}, sort_keys=True))
     elif args.command == "split":
         records = list(read_records(args.input))
         values, counts = split_records(records, args.seed)

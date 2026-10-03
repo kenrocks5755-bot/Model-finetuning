@@ -24,11 +24,10 @@ class PipelineTest(unittest.TestCase):
             stats = convert_file(source, converted, "pymeta")
             self.assertEqual(stats["output"], 2)
             records, _ = split_records(list(read_records(converted)), seed=1)
-            self.assertEqual(validate(records)["ok"], True)
+            self.assertEqual(validate(records, require_all_splits=False)["ok"], True)
             self.assertNotIn("10.2.3.4", json.dumps(records))
             self.assertEqual(len({r["split"] for r in records if r["learner_id"] == records[0]["learner_id"]}), 1)
 
 
 if __name__ == "__main__":
     unittest.main()
-

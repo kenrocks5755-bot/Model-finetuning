@@ -18,3 +18,8 @@ label stores name, source, confidence, status, and rubric version.
 Custom examples require a named misconception, executable test/reference
 behavior, provenance, and successful duplicate/split checks.
 
+The splitter computes connected components across learner IDs, problem IDs,
+and normalized question/code templates. If this collapses a source into one
+component, validation fails rather than manufacturing a held-out result. Such
+a source may contribute only after adding independently structured data or a
+separately audited split strategy.

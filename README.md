@@ -18,13 +18,15 @@ download helper refuses checksum mismatches.
 python scripts/download_manifest.py /secure/path/sources.json
 python -m relearn.cli convert data/raw/pymeta.jsonl data/intermediate/pymeta.jsonl --source pymeta
 python -m relearn.cli convert data/raw/dublin.jsonl data/intermediate/dublin.jsonl --source dublin
-python -m relearn.cli merge data/intermediate/pymeta.jsonl data/intermediate/dublin.jsonl data/derived/combined.jsonl
-python -m relearn.cli split data/derived/combined.jsonl data/derived/split.jsonl
+python -m relearn.cli merge data/intermediate/pymeta.jsonl data/intermediate/dublin.jsonl --output data/derived/combined.jsonl
+python -m relearn.cli deduplicate data/derived/combined.jsonl data/derived/deduplicated.jsonl
+python -m relearn.cli split data/derived/deduplicated.jsonl data/derived/split.jsonl
 python -m relearn.cli validate data/derived/split.jsonl
 ```
 
-Start from `configs/sources.example.json`, replacing placeholders only after
-confirming the publisher's license/access terms. The downloader writes a
+`configs/verified_sources.json` pins the current verified primary-source
+metadata: PyMETA's revision and SHA-256 objects plus Dublin's publisher MD5.
+The downloader writes a
 checksum-verified `manifest.lock.json` beside the private raw files so
 attribution and license metadata travel with the downloaded source.
 

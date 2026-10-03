@@ -29,13 +29,13 @@ class RelearnRecord:
 
 FIELD_ALIASES: dict[str, tuple[str, ...]] = {
     "question": ("question", "prompt", "problem", "problem_statement", "description", "task"),
-    "learner_code": ("learner_code", "code", "submission", "source_code", "program", "answer"),
-    "reference_behavior": ("reference_behavior", "expected", "expected_output", "reference", "solution", "test_oracle"),
-    "source_outcome": ("source_outcome", "outcome", "verdict", "result", "status", "label"),
-    "source_error": ("source_error", "error", "error_message", "stderr", "exception", "feedback"),
+    "learner_code": ("learner_code", "studentanswer", "code", "submission", "source_code", "program", "answer"),
+    "reference_behavior": ("reference_behavior", "exceptedanswer", "expected", "expected_output", "reference", "solution", "test_oracle"),
+    "source_outcome": ("source_outcome", "error_category", "outcome", "verdict", "result", "status", "state", "label"),
+    "source_error": ("source_error", "testoutcome", "r_traceback", "r_errortype", "c_errormessage", "c_errortype", "error", "error_message", "stderr", "exception", "feedback"),
     "executable_test": ("executable_test", "tests", "test_code", "unit_test", "oracle_code"),
-    "learner_id": ("learner_id", "student_id", "user_id", "author_id", "user", "student"),
-    "problem_id": ("problem_id", "task_id", "exercise_id", "question_id", "problem", "challenge_id"),
+    "learner_id": ("learner_id", "userid", "student_id", "user_id", "author_id", "user", "student"),
+    "problem_id": ("problem_id", "questionid", "task_id", "exercise_id", "question_id", "problem", "challenge_id"),
 }
 
 

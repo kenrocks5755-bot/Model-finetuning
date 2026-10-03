@@ -25,14 +25,15 @@ def normalize(row: dict[str, Any], source: str, source_file: str) -> RelearnReco
     learner_raw = first_value(row, FIELD_ALIASES["learner_id"])
     problem_raw = first_value(row, FIELD_ALIASES["problem_id"])
     clean = lambda key: scrub_text(_text(first_value(row, FIELD_ALIASES[key])))
+    source_outcome = clean("source_outcome")
     record = RelearnRecord(
         question=scrub_text(question) or "",
         learner_code=scrub_text(code) or "",
         reference_behavior=clean("reference_behavior"),
-        source_outcome=clean("source_outcome"),
+        source_outcome=source_outcome,
         source_error=clean("source_error"),
         executable_test=clean("executable_test"),
-        provenance={"dataset": source, "source_file": source_file},
+        provenance={"dataset": source, "source_file": Path(source_file).name, "source_label": source_outcome},
         label_confidence=None,
         misconception_labels=[],
         learner_id=stable_private_id(learner_raw, "learner"),
@@ -67,3 +68,15 @@ def convert_file(path: Path, output: Path, source: str) -> dict[str, int]:
 
     write_jsonl(output, records())
     return stats
+
+
+def deduplicate_records(rows: Iterator[dict[str, Any]]) -> Iterator[dict[str, Any]]:
+    """Deduplicate canonical records globally, preserving the first provenance."""
+    seen: set[str] = set()
+    for row in rows:
+        record = RelearnRecord(**row)
+        key = fingerprint(record)
+        if key in seen:
+            continue
+        seen.add(key)
+        yield row

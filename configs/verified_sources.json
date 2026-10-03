@@ -1,0 +1,48 @@
+[
+  {
+    "name": "CircleCat/PyMETA train",
+    "dataset": "pymeta",
+    "landing_page": "https://huggingface.co/datasets/CircleCat/pymeta",
+    "url": "https://huggingface.co/datasets/CircleCat/pymeta/resolve/2279d0258cdb6062237dc17152bf3223126efcd8/train.csv",
+    "filename": "pymeta/train.csv",
+    "sha256": "9a48c2b3822e135200bd63b0eeaf3492027fdebb13e4a8fa9ef8964af51128d3",
+    "license": "CC BY-NC 4.0",
+    "attribution": "CircleCat, PyMETA (Hugging Face revision 2279d0258cdb6062237dc17152bf3223126efcd8)",
+    "retrieved_metadata_at": "2026-10-03"
+  },
+  {
+    "name": "CircleCat/PyMETA validation",
+    "dataset": "pymeta",
+    "landing_page": "https://huggingface.co/datasets/CircleCat/pymeta",
+    "url": "https://huggingface.co/datasets/CircleCat/pymeta/resolve/2279d0258cdb6062237dc17152bf3223126efcd8/dev.csv",
+    "filename": "pymeta/dev.csv",
+    "sha256": "11e707c4d5c9134714d5b53abee8f651ec9bfb1da248bd9f27336689c63dc990",
+    "license": "CC BY-NC 4.0",
+    "attribution": "CircleCat, PyMETA (Hugging Face revision 2279d0258cdb6062237dc17152bf3223126efcd8)",
+    "retrieved_metadata_at": "2026-10-03"
+  },
+  {
+    "name": "CircleCat/PyMETA test",
+    "dataset": "pymeta",
+    "landing_page": "https://huggingface.co/datasets/CircleCat/pymeta",
+    "url": "https://huggingface.co/datasets/CircleCat/pymeta/resolve/2279d0258cdb6062237dc17152bf3223126efcd8/test.csv",
+    "filename": "pymeta/test.csv",
+    "sha256": "7c2bc9701a4560303aa1d62583d5065291e88fa73df305ff54718aa33375b079",
+    "license": "CC BY-NC 4.0",
+    "attribution": "CircleCat, PyMETA (Hugging Face revision 2279d0258cdb6062237dc17152bf3223126efcd8)",
+    "retrieved_metadata_at": "2026-10-03"
+  },
+  {
+    "name": "Dublin programming submissions",
+    "dataset": "dublin",
+    "landing_page": "https://figshare.com/articles/dataset/_5_Million_Python_Bash_Programming_Submissions_for_5_Courses_Grades_for_Computer-Based_Exams_over_3_academic_years_/12610958",
+    "doi": "10.6084/m9.figshare.12610958.v1",
+    "url": "https://ndownloader.figshare.com/files/23681627",
+    "filename": "dublin/programming_data.json",
+    "md5": "f4d31aa765e66dca2c7f2a6202447366",
+    "license": "CC BY 4.0",
+    "attribution": "David Azcona and Alan Smeaton, +5 Million Python & Bash Programming Submissions for 5 Courses & Grades for Computer-Based Exams over 3 academic years",
+    "retrieved_metadata_at": "2026-10-03",
+    "pii_sensitive": true
+  }
+]

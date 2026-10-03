@@ -23,12 +23,45 @@ def assign_group_split(value: str, seed: int = 20261004) -> str:
 
 
 def split_records(records: list[dict[str, Any]], seed: int = 20261004) -> tuple[list[dict[str, Any]], Counter[str]]:
+    """Split connected learner/problem/template components, not isolated rows.
+
+    A component links rows sharing a learner, a problem, or a normalized
+    question/code template. This prevents both learner/problem and exact
+    near-duplicate leakage across the main split.
+    """
+    parent = list(range(len(records)))
+
+    def find(value: int) -> int:
+        while parent[value] != value:
+            parent[value] = parent[parent[value]]
+            value = parent[value]
+        return value
+
+    def union(left: int, right: int) -> None:
+        left, right = find(left), find(right)
+        if left != right:
+            parent[right] = left
+
+    seen: dict[str, int] = {}
+    for index, record in enumerate(records):
+        normalized = " ".join(" ".join(str(record.get(k) or "").lower().split()) for k in ("question", "learner_code"))
+        keys = [f"template:{hashlib.sha256(normalized.encode()).hexdigest()}"]
+        if record.get("learner_id"):
+            keys.append(f"learner:{record['learner_id']}")
+        if record.get("problem_id"):
+            keys.append(f"problem:{record['problem_id']}")
+        for key in keys:
+            if key in seen:
+                union(index, seen[key])
+            else:
+                seen[key] = index
+
     counts: Counter[str] = Counter()
     output = []
-    seen_groups: dict[str, str] = {}
-    for record in records:
-        group = group_key(record)
-        split = seen_groups.setdefault(group, assign_split(record, seed))
+    components: dict[int, str] = {}
+    for index, record in enumerate(records):
+        root = find(index)
+        split = components.setdefault(root, assign_group_split(f"component:{root}", seed))
         copy = dict(record)
         copy["split"] = split
         if record.get("problem_id"):

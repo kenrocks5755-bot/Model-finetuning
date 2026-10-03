@@ -14,7 +14,7 @@ from .executable import executable_preflight
 REQUIRED = {"question", "learner_code", "reference_behavior", "source_outcome", "source_error", "executable_test", "provenance", "label_confidence", "misconception_labels"}
 
 
-def validate(records: list[dict[str, Any]]) -> dict[str, Any]:
+def validate(records: list[dict[str, Any]], require_all_splits: bool = True) -> dict[str, Any]:
     errors: list[str] = []
     groups: dict[str, str] = {}
     fingerprints: dict[str, str] = {}
@@ -46,4 +46,8 @@ def validate(records: list[dict[str, Any]]) -> dict[str, Any]:
     by_confidence = Counter("unlabelled" if r.get("label_confidence") is None else str(r.get("label_confidence")) for r in records)
     labels = Counter(label.get("name") for r in records for label in r.get("misconception_labels", []))
     executable = Counter("ready" if executable_preflight(r)["ready"] else "missing_or_invalid" for r in records)
-    return {"records": len(records), "splits": dict(Counter(r.get("split") for r in records)), "problem_holdout": dict(Counter(r.get("unseen_problem_holdout") for r in records if r.get("unseen_problem_holdout"))), "learner_holdout": dict(Counter(r.get("unseen_learner_holdout") for r in records if r.get("unseen_learner_holdout"))), "by_source": dict(by_source), "by_confidence": dict(by_confidence), "label_balance": dict(labels), "executable_tests": dict(executable), "errors": errors, "ok": not errors}
+    splits = Counter(r.get("split") for r in records)
+    missing_splits = {"train", "validation", "test"} - set(splits)
+    if require_all_splits and missing_splits:
+        errors.append(f"missing leakage-safe split(s): {sorted(missing_splits)}")
+    return {"records": len(records), "splits": dict(splits), "problem_holdout": dict(Counter(r.get("unseen_problem_holdout") for r in records if r.get("unseen_problem_holdout"))), "learner_holdout": dict(Counter(r.get("unseen_learner_holdout") for r in records if r.get("unseen_learner_holdout"))), "by_source": dict(by_source), "by_confidence": dict(by_confidence), "label_balance": dict(labels), "executable_tests": dict(executable), "errors": errors, "ok": not errors}
