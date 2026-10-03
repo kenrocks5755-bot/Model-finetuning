@@ -1,0 +1,27 @@
+{
+  "source": "CircleCat/PyMETA",
+  "source_revision": "2279d0258cdb6062237dc17152bf3223126efcd8",
+  "license": "CC BY-NC 4.0",
+  "downloaded_files": 3,
+  "publisher_records": 48646,
+  "conversion": {
+    "valid_records": 48645,
+    "within_file_deduplicated_records": 37245,
+    "globally_deduplicated_records": 35612
+  },
+  "source_outcomes": {
+    "error": 22813,
+    "no_error": 12799
+  },
+  "privacy": {
+    "direct_identifiers_retained": false,
+    "ip_or_email_validation_errors": 0
+  },
+  "quality_gate": {
+    "status": "blocked",
+    "reason": "learner/problem/template connected-component split collapses into one training component; no leakage-safe validation or test split exists",
+    "conceptual_misconception_labels": 0,
+    "executable_test_ready_records": 0
+  },
+  "notes": "source_outcomes are retained as source metadata only and are not misconception labels"
+}
