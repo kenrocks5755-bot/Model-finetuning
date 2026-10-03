@@ -13,3 +13,7 @@ macro-F1 plus response validity, executable-test pass rate,
 confidence/calibration, and abstention/error rates. Merge/export adapters only
 after validation in a private artifact store.
 
+Use `scripts/metrics.py` for response non-emptiness, provenance coverage, and
+reference exact-match reporting. Use
+`scripts/merge_adapter.py --adapter ... --output ... --allow-gpu` only after
+the holdout report is approved.
