@@ -1,0 +1,18 @@
+# Private source and derived data. Keep only small fixtures under tests/fixtures.
+data/raw/
+data/intermediate/
+data/derived/
+artifacts/
+checkpoints/
+outputs/
+*.parquet
+*.jsonl
+*.jsonl.gz
+*.csv
+*.zip
+*.tar.gz
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+

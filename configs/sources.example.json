@@ -1,0 +1,20 @@
+[
+  {
+    "name": "CircleCat/PyMETA",
+    "landing_page": "<public dataset landing page>",
+    "url": "<direct public download URL>",
+    "filename": "pymeta.<jsonl-or-csv>",
+    "sha256": "<64-hex SHA-256>",
+    "license": "<license as shown by publisher>",
+    "attribution": "CircleCat/PyMETA"
+  },
+  {
+    "name": "Dublin student-programming submissions",
+    "landing_page": "<Figshare article URL>",
+    "url": "<Figshare file download URL>",
+    "filename": "dublin.<jsonl-or-csv>",
+    "sha256": "<64-hex SHA-256>",
+    "license": "<license as shown by Figshare article>",
+    "attribution": "Dublin student-programming submission corpus"
+  }
+]
